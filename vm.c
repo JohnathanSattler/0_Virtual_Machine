@@ -81,10 +81,12 @@ int main(int argc, const char * argv[]) {
 	return 0;
 }
 
+// void function to initiate the stack
 void initStack(int stack[]) {
 
 	int i;
 
+	// initiate the stack to zero
 	for (i = 0; i < MAX_STACK_HEIGHT; i++)
 		stack[i] = 0;
 
@@ -123,12 +125,14 @@ void readFile(const char * fileName, instruction code[]) {
 	return;
 }
 
+// void function to print instruction code
 void printCode(int size, instruction code[]) {
 
 	int i;
 
 	printf("PL/0 code:\n\n");
 
+	// loop through instruction code, sending it to the function printInstruction to determine proper print procedure
 	for (i = 0; i < size; i++) {
 		printInstruction(code[i], i);
 		printf("\n");
@@ -217,10 +221,12 @@ int base(int level, int b, int stack[]) {
 	return b;
 }
 
+// handles the execution of the program
 void fetchCycle(instruction code[], int stack[], int * pc, int * bp, int * sp, int * ir) {
 
 	int * halt;
 
+	// initialize all of the pointers
 	halt = (int *) malloc(sizeof(int));
 
 	*pc = 0;
@@ -232,16 +238,22 @@ void fetchCycle(instruction code[], int stack[], int * pc, int * bp, int * sp, i
 
 	printf("\nExecution:\n");
 	printf("                      pc   bp   sp   stack\n");
-	printf("                      %2d   %2d   %2d\n", *pc, *bp, *sp);
+	printf("                    ");
+	printContents(code[*ir], *ir, *pc, *bp, *sp, stack);
 
+	// loop through the code and stop at the halt condition
 	while (*halt != 1 && *pc < MAX_CODE_LENGTH) {
+		// fetch the current instruction, and increment pc
 		*ir = *pc;
 		(*pc)++;
 		
+		// print the current instruction
 		printInstruction(code[*ir], *ir);
 
+		// run the current instruction
 		executeCycle(code[*ir], stack, pc, bp, sp, halt);
 
+		// print the contents of each pointer, and the stack
 		printContents(code[*ir], *ir, *pc, *bp, *sp, stack);
 	}
 

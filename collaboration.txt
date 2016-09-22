@@ -9,7 +9,7 @@ Lester Young
 Worked on the readFile and printInstruction function
 
 Timothy Konzil
-Wrote the printContents function and the base function
+Wrote the printContents function and the fetchCycle function
 
 Remington Howell
 Wrote printStack and base functions
@@ -18,3 +18,4 @@ Johnathan Sattler
 Wrote the main function and the executeCycle function
 
 John Herold
+Wrote initStack function and printCode function
